@@ -21,18 +21,20 @@ process transfer_data {
     cpus 1
     tag "transfer_data"
 
-    input:
-    val(line),  // Each line from the parsed text file
-    val(dst)    // Destination parameter
+    input: 
+    tuple(
+        val(line),  // Each line from the parsed text file
+        val(dst)    // Destination parameter
+    )
+    
 
     script:
     """
-    echo "Transferring file: ${line} to destination: ${dst}"
-
-    # Using singularity to transfer data
-    singularity exec -B /hpcnfs/ /hpcnfs/techunits/bioinformatics/singularity/teleport-distroless_14.0.3.sif \
-    tsh scp -r --proxy teleport.ieo.it "${line}" "dimaimaging.garr.cloud.ct:${dst}"
+    echo Transferring file: "${line}" to destination: "${dst}"    
     """
+    // # Using singularity to transfer data
+    // # singularity exec -B /hpcnfs/ /hpcnfs/techunits/bioinformatics/singularity/teleport-distroless_14.0.3.sif \
+    // # tsh scp -r --proxy teleport.ieo.it "${line}" dimaimaging.garr.cloud.ct:"${params.dst}"
 }
 
 // Workflow definition
