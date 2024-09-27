@@ -35,6 +35,20 @@ process transfer_data {
     // # Using singularity to transfer data
     // # singularity exec -B /hpcnfs/ /hpcnfs/techunits/bioinformatics/singularity/teleport-distroless_14.0.3.sif \
     // # tsh scp -r --proxy teleport.ieo.it "${line}" dimaimaging.garr.cloud.ct:"${params.dst}"
+    
+    // # Check if the file exists at the destination
+    // singularity exec -B /hpcnfs/ /hpcnfs/techunits/bioinformatics/singularity/teleport-distroless_14.0.3.sif \
+    // tsh ssh --proxy teleport.ieo.it "$DST_HOST" "[[ -f '$DST_FILE' ]]"
+    // 
+    // # Capture the exit status of the previous command
+    // if [ $? -eq 0 ]; then
+    //     echo "File already exists at destination: $DST_FILE"
+    // else
+    //     echo "File does not exist at destination. Proceeding with transfer."
+    //     # Transfer the file using scp
+    //     singularity exec -B /hpcnfs/ /hpcnfs/techunits/bioinformatics/singularity/teleport-distroless_14.0.3.sif \
+    //     tsh scp -r --proxy teleport.ieo.it "$SRC_FILE" "$DST_HOST:$DST_PATH"
+    // fi
 }
 
 // Workflow definition
